@@ -30,4 +30,12 @@ public class ListOfCountry {
         }
     }
 
+    public int getLength() {
+        int length = 0;
+        for (Country next : countriesVisited) {
+            length++;
+        }
+        return length;
+    }
+
 }
