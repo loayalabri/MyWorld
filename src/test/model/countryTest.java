@@ -29,7 +29,7 @@ class countryTest {
 
     @Test
     void testChangeRating() {
-        testCountry.changeRating(6);
+        testCountry.setRating(6);
         assertEquals(6, testCountry.getRating());
     }
 }

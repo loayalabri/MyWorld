@@ -17,6 +17,8 @@ public class ListOfCountryTest {
     void runBefore() {
         testList = new ListOfCountry();
         testCountry1 = new Country("Canada", "North America", 7);
+        testCountry2 = new Country("USA", "North America", 8);
+        testCountry3 = new Country("Egypt", "Africa", 9);
     }
 
     @Test
@@ -33,8 +35,6 @@ public class ListOfCountryTest {
 
     @Test
     void testAddMultipleCountries() {
-        testCountry2 = new Country("USA", "North America", 8);
-        testCountry3 = new Country("Egypt", "Africa", 9);
         testList.addCountry(testCountry1);
         testList.addCountry(testCountry2);
         testList.addCountry(testCountry3);
@@ -43,5 +43,36 @@ public class ListOfCountryTest {
         assertTrue(testList.countriesVisited.contains(testCountry1));
         assertTrue(testList.countriesVisited.contains(testCountry2));
         assertTrue(testList.countriesVisited.contains(testCountry3));
+    }
+
+    @Test
+    void testRemoveCountry() {
+        testList.addCountry(testCountry1);
+
+        testList.removeCountry("Canada");
+        assertEquals(0, testList.getLength());
+    }
+
+    @Test
+    void testRemoveCountryFromManyCountries() {
+        testList.addCountry(testCountry1);
+        testList.addCountry(testCountry2);
+        testList.addCountry(testCountry3);
+
+        testList.removeCountry("Canada");
+        assertEquals(2, testList.getLength());
+        assertFalse(testList.countriesVisited.contains(testCountry1));
+        assertTrue(testList.countriesVisited.contains(testCountry2));
+        assertTrue(testList.countriesVisited.contains(testCountry3));
+    }
+
+    @Test
+    void testRemoveCountryDuplicates() {
+        testList.addCountry(testCountry2);
+        testList.addCountry(testCountry2);
+
+        testList.removeCountry("USA");
+        assertEquals(1, testList.getLength());
+        assertTrue(testList.countriesVisited.contains(testCountry2));
     }
 }

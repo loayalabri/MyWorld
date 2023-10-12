@@ -23,19 +23,28 @@ public class ListOfCountry {
     //MODIFIES: this
     //EFFECTS: remove latest added country with given name
     public void removeCountry(String name) {
+        Country remove = new Country(null, null, 0);
         for (Country next : countriesVisited) {
-            if (next.getCountryName() == name) {
-                countriesVisited.remove(next);
+            if (next.getCountryName().equals(name)) {
+                remove = next;
+                break;
             }
         }
+        countriesVisited.remove(remove);
     }
 
     public int getLength() {
-        int length = 0;
+        return countriesVisited.size();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: return a list of names of visited countries
+    public List<String> getCountriesNames() {
+        List<String> countiesNames = new ArrayList<>();
         for (Country next : countriesVisited) {
-            length++;
+            countiesNames.add(next.getCountryName());
         }
-        return length;
+        return countiesNames;
     }
 
 }

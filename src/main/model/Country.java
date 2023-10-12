@@ -44,7 +44,7 @@ public class Country {
     //REQUIRES: newRating in [1-10]
     //MODIFIES: this
     //EFFECTS: change rating to newRating
-    public void changeRating(int newRating) {
+    public void setRating(int newRating) {
         rating = newRating;
     }
 }
