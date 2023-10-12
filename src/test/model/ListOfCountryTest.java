@@ -55,9 +55,9 @@ public class ListOfCountryTest {
 
     @Test
     void testRemoveCountryFromManyCountries() {
-        testList.addCountry(testCountry1);
         testList.addCountry(testCountry2);
         testList.addCountry(testCountry3);
+        testList.addCountry(testCountry1);
 
         testList.removeCountry("Canada");
         assertEquals(2, testList.getLength());
@@ -77,7 +77,7 @@ public class ListOfCountryTest {
     }
 
     @Test
-    void testGetCountriesNamesOne() {
+    void testGetCountriesNames() {
         testList.addCountry(testCountry1);
         testList.addCountry(testCountry2);
         testList.addCountry(testCountry3);
