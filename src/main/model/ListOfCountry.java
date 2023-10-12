@@ -6,7 +6,7 @@ import model.Country;
 
 // Represents the list of countries visited
 public class ListOfCountry {
-    List<Country> countriesVisited;  //Countries visited
+    public List<Country> countriesVisited;  //Countries visited
 
     //EFFECTS: create an empty list of countries visited
     public ListOfCountry() {
@@ -45,5 +45,4 @@ public class ListOfCountry {
         }
         return countiesNames;
     }
-
 }

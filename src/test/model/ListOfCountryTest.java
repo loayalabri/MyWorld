@@ -16,9 +16,9 @@ public class ListOfCountryTest {
     @BeforeEach
     void runBefore() {
         testList = new ListOfCountry();
-        testCountry1 = new Country("Canada", "North America", 7);
-        testCountry2 = new Country("USA", "North America", 8);
-        testCountry3 = new Country("Egypt", "Africa", 9);
+        testCountry1 = new Country("Canada", "North America", 7, "");
+        testCountry2 = new Country("USA", "North America", 8, "");
+        testCountry3 = new Country("Egypt", "Africa", 9, "");
     }
 
     @Test

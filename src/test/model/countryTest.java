@@ -11,7 +11,7 @@ class countryTest {
 
     @BeforeEach
     void runBefore() {
-        testCountry = new Country("Canada", "North America", 8);
+        testCountry = new Country("Canada", "North America", 8, "");
     }
 
     @Test

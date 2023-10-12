@@ -13,10 +13,11 @@ public class Country {
     //          rating is in [1-10]
     //EFFECTS: create a country with given name, continent, and
     //         rating.
-    public Country(String name, String continent, int rating) {
+    public Country(String name, String continent, int rating, String desc) {
         this.countryName = name;
         this.continent = continent;
         this.rating = rating;
+        this.description = desc;
     }
 
     public String getCountryName() {
