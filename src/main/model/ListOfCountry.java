@@ -23,14 +23,13 @@ public class ListOfCountry {
     //MODIFIES: this
     //EFFECTS: remove latest added country with given name
     public void removeCountry(String name) {
-        Country remove = new Country(null, null, 0);
         for (Country next : countriesVisited) {
             if (next.getCountryName().equals(name)) {
-                remove = next;
+                Country remove = next;
+                countriesVisited.remove(remove);
                 break;
             }
         }
-        countriesVisited.remove(remove);
     }
 
     public int getLength() {
