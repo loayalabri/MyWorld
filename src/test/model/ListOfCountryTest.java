@@ -46,6 +46,12 @@ public class ListOfCountryTest {
     }
 
     @Test
+    void testRemoveCountryEmpty() {
+        testList.removeCountry("Oman");
+        assertTrue(testList.getCountriesVisited().isEmpty());
+    }
+
+    @Test
     void testRemoveCountry() {
         testList.addCountry(testCountry1);
 
