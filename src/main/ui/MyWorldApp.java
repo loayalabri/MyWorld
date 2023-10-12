@@ -16,9 +16,11 @@ public class MyWorldApp {
         runApp();
     }
 
+    //MODIFIES: this
+    //EFFECTS: process user input
     private void runApp() {
         boolean running = true;
-        String command = null;
+        String command;
 
         init();
 
@@ -32,7 +34,7 @@ public class MyWorldApp {
                 System.out.println("Thanks for using My World Application");
             } else {
                 processCommand(command);
-                displayMainMenue();
+                displayMainMenu();
 
             }
         }
@@ -74,7 +76,7 @@ public class MyWorldApp {
         }
     }
 
-    private void displayMainMenue() {
+    private void displayMainMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Add a new country");
         System.out.println("\tr -> Remove exiting country");

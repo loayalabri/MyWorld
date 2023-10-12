@@ -3,7 +3,7 @@ package model;
 // Represents a country that have name, rating (from 1 to 10), continent,
 // description, and photos.
 public class Country {
-    private String countryName;                      // the country name
+    private String countryName;               // the country name
     private int rating;                       // country rating
     private String description;               // description of the country
     private String continent;                 // continent of the country

@@ -6,7 +6,7 @@ import java.util.List;
 
 // Represents the list of countries visited
 public class ListOfCountry {
-    private List<Country> countriesVisited;  //Countries visited
+    private final List<Country> countriesVisited;  //Countries visited
 
     //EFFECTS: create an empty list of countries visited
     public ListOfCountry() {
@@ -25,8 +25,7 @@ public class ListOfCountry {
     public void removeCountry(String name) {
         for (Country next : countriesVisited) {
             if (next.getCountryName().equals(name)) {
-                Country remove = next;
-                countriesVisited.remove(remove);
+                countriesVisited.remove(next);
                 break;
             }
         }

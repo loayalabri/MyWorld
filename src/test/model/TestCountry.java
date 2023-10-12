@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class countryTest {
+class TestCountry {
     private Country testCountry;
 
     @BeforeEach
@@ -22,7 +22,7 @@ class countryTest {
     }
 
     @Test
-    void testCreateDescribtion() {
+    void testCreateDescription() {
         testCountry.createDescription("Canada is one of the best countries I visited");
         assertEquals("Canada is one of the best countries I visited", testCountry.getDescription());
     }
