@@ -2,11 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Country;
+
 
 // Represents the list of countries visited
 public class ListOfCountry {
-    public List<Country> countriesVisited;  //Countries visited
+    private List<Country> countriesVisited;  //Countries visited
 
     //EFFECTS: create an empty list of countries visited
     public ListOfCountry() {
@@ -34,6 +34,10 @@ public class ListOfCountry {
 
     public int getLength() {
         return countriesVisited.size();
+    }
+
+    public List<Country> getCountriesVisited() {
+        return countriesVisited;
     }
 
     //MODIFIES: this

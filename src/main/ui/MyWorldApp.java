@@ -58,14 +58,19 @@ public class MyWorldApp {
     //MODIFIES: this
     //EFFECTS: process given command
     private void processCommand(String command) {
-        if (command.equals("a")) {
-            doAddCountry();
-        } else if (command.equals("r")) {
-            doRemoveCountry();
-        } else if (command.equals("d")) {
-            doDisplayCountryNames();
-        } else {
-            System.out.println("Invalid Command");
+        switch (command) {
+            case "a":
+                doAddCountry();
+                break;
+            case "r":
+                doRemoveCountry();
+                break;
+            case "d":
+                doDisplayCountryNames();
+                break;
+            default:
+                System.out.println("Invalid Command");
+                break;
         }
     }
 
@@ -80,10 +85,10 @@ public class MyWorldApp {
     //MODIFIES: this
     //EFFECTS: add country to my World
     private void doAddCountry() {
-        String name = null;
-        String continent = null;
-        int rating = 0;
-        String desc = null;
+        String name;
+        String continent;
+        int rating;
+        String desc;
 
         System.out.println("\nEnter country name:");
         name = input.next();
@@ -119,7 +124,7 @@ public class MyWorldApp {
     //MODIFIES: this
     //EFFECTS: remove country from my world
     private void doRemoveCountry() {
-        String remove = null;
+        String remove;
         System.out.println("Enter name of the country to be removed:");
         remove = input.next();
         if (myWorld.getCountriesNames().contains(remove)) {
@@ -132,7 +137,7 @@ public class MyWorldApp {
 
     //EFFECTS: print names of countries in my world
     private void doDisplayCountryNames() {
-        if (myWorld.countriesVisited.isEmpty()) {
+        if (myWorld.getCountriesVisited().isEmpty()) {
             System.out.println("You have no countries");
         } else {
             List<String> countries = myWorld.getCountriesNames();

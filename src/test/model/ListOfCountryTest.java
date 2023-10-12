@@ -30,7 +30,7 @@ public class ListOfCountryTest {
     void testAddCountry() {
         testList.addCountry(testCountry1);
         assertEquals(1, testList.getLength());
-        assertTrue(testList.countriesVisited.contains(testCountry1));
+        assertTrue(testList.getCountriesVisited().contains(testCountry1));
     }
 
     @Test
@@ -40,9 +40,9 @@ public class ListOfCountryTest {
         testList.addCountry(testCountry3);
 
         assertEquals(3, testList.getLength());
-        assertTrue(testList.countriesVisited.contains(testCountry1));
-        assertTrue(testList.countriesVisited.contains(testCountry2));
-        assertTrue(testList.countriesVisited.contains(testCountry3));
+        assertTrue(testList.getCountriesVisited().contains(testCountry1));
+        assertTrue(testList.getCountriesVisited().contains(testCountry2));
+        assertTrue(testList.getCountriesVisited().contains(testCountry3));
     }
 
     @Test
@@ -61,9 +61,9 @@ public class ListOfCountryTest {
 
         testList.removeCountry("Canada");
         assertEquals(2, testList.getLength());
-        assertFalse(testList.countriesVisited.contains(testCountry1));
-        assertTrue(testList.countriesVisited.contains(testCountry2));
-        assertTrue(testList.countriesVisited.contains(testCountry3));
+        assertFalse(testList.getCountriesVisited().contains(testCountry1));
+        assertTrue(testList.getCountriesVisited().contains(testCountry2));
+        assertTrue(testList.getCountriesVisited().contains(testCountry3));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ListOfCountryTest {
 
         testList.removeCountry("USA");
         assertEquals(1, testList.getLength());
-        assertTrue(testList.countriesVisited.contains(testCountry2));
+        assertTrue(testList.getCountriesVisited().contains(testCountry2));
     }
 
     @Test
