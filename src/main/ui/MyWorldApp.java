@@ -60,19 +60,16 @@ public class MyWorldApp {
     //MODIFIES: this
     //EFFECTS: process given command
     private void processCommand(String command) {
-        switch (command) {
-            case "a":
-                doAddCountry();
-                break;
-            case "r":
-                doRemoveCountry();
-                break;
-            case "d":
-                doDisplayCountryNames();
-                break;
-            default:
-                System.out.println("Invalid Command");
-                break;
+        if (command.equals("a")) {
+            doAddCountry();
+        } else if (command.equals("r")) {
+            doRemoveCountry();
+        } else if (command.equals("d")) {
+            doDisplayCountryNames();
+        } else if (command.equals("c")) {
+            doChangeRating();
+        } else {
+            System.out.println("Invalid Command");
         }
     }
 
@@ -81,6 +78,7 @@ public class MyWorldApp {
         System.out.println("\ta -> Add a new country");
         System.out.println("\tr -> Remove exiting country");
         System.out.println("\td -> Display Countries");
+        System.out.println("\tc -> Change rating of a country");
         System.out.println("\tq -> Quit");
     }
 
@@ -112,16 +110,6 @@ public class MyWorldApp {
         }
     }
 
-    //EFFECTS: check that rating is in [0-10]
-    //         if not start entering country again
-    private Boolean checkRating(int rating) {
-        if (rating > 10 | rating < 0) {
-            System.out.println("Invalid rating, try again");
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     //MODIFIES: this
     //EFFECTS: remove country from my world
@@ -137,6 +125,27 @@ public class MyWorldApp {
         }
     }
 
+    private void doChangeRating() {
+        String name;
+        int newRating;
+
+        System.out.println("Enter name of country to change its rating:");
+        name = input.next();
+        System.out.println("Enter you new rating for the country[0-10]:");
+        newRating = input.nextInt();
+
+        Country result = myWorld.getCountryFromName(name);
+
+        if (checkRating(newRating)) {
+            if (!(result == null)) {
+                result.setRating(newRating);
+                System.out.println(name + " rating was changed to " + newRating);
+            } else {
+                System.out.println("Change rating was unsuccessful, check spelling");
+            }
+        }
+    }
+
     //EFFECTS: print names of countries in my world
     private void doDisplayCountryNames() {
         if (myWorld.getCountriesVisited().isEmpty()) {
@@ -144,6 +153,17 @@ public class MyWorldApp {
         } else {
             List<String> countries = myWorld.getCountriesNames();
             System.out.println(countries);
+        }
+    }
+
+    //EFFECTS: check that rating is in [0-10]
+    //         if not start entering country again
+    private Boolean checkRating(int rating) {
+        if (rating > 10 | rating < 0) {
+            System.out.println("Invalid rating, try again");
+            return false;
+        } else {
+            return true;
         }
     }
 }

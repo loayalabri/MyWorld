@@ -48,4 +48,15 @@ public class ListOfCountry {
         }
         return countiesNames;
     }
+
+    //EFFECTS: return the first country added that has a given name
+    public Country getCountryFromName(String name) {
+        Country country = null;
+        for (Country next : countriesVisited) {
+            if (next.getCountryName().equals(name)) {
+                country = next;
+            }
+        }
+        return country;
+    }
 }

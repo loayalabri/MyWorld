@@ -95,5 +95,22 @@ public class ListOfCountryTest {
         assertTrue(result.contains("USA"));
         assertTrue(result.contains("Egypt"));
     }
+
+
+    @Test
+    void testGetCountryFromNameNoCountry() {
+        Country result = testList.getCountryFromName("Canada");
+        assertNull(result);
+    }
+
+    @Test
+    void testGetCountryFromName() {
+        testList.addCountry(testCountry3);
+        testList.addCountry(testCountry2);
+        testList.addCountry(testCountry1);
+
+        Country result = testList.getCountryFromName("Canada");
+        assertEquals(result, testCountry1);
+    }
 }
 
