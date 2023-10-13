@@ -60,16 +60,22 @@ public class MyWorldApp {
     //MODIFIES: this
     //EFFECTS: process given command
     private void processCommand(String command) {
-        if (command.equals("a")) {
-            doAddCountry();
-        } else if (command.equals("r")) {
-            doRemoveCountry();
-        } else if (command.equals("d")) {
-            doDisplayCountryNames();
-        } else if (command.equals("c")) {
-            doChangeRating();
-        } else {
-            System.out.println("Invalid Command");
+        switch (command) {
+            case "a":
+                doAddCountry();
+                break;
+            case "r":
+                doRemoveCountry();
+                break;
+            case "d":
+                doDisplayCountryNames();
+                break;
+            case "c":
+                doChangeRating();
+                break;
+            default:
+                System.out.println("Invalid Command");
+                break;
         }
     }
 
