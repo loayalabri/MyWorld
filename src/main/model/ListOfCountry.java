@@ -1,11 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 // Represents the list of countries visited
-public class ListOfCountry {
+public class ListOfCountry implements Writable {
     private final List<Country> countriesVisited;  //Countries visited
 
     //EFFECTS: create an empty list of countries visited
@@ -58,5 +62,21 @@ public class ListOfCountry {
             }
         }
         return country;
+    }
+
+    @Override
+    public JSONObject toJason() {
+        JSONObject json = new JSONObject();
+        json.put("countries", countriesToJason());
+        return json;
+    }
+
+    private JSONArray countriesToJason() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Country next : countriesVisited) {
+            jsonArray.put(next.toJason());
+        }
+        return jsonArray;
     }
 }

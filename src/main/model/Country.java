@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a country that have name, rating (from 1 to 10), continent,
 // description, and photos.
-public class Country {
-    private String countryName;               // the country name
+public class Country implements Writable {
+    private String name;               // the country name
     private int rating;                       // country rating
     private String description;               // description of the country
     private String continent;                 // continent of the country
@@ -14,14 +17,14 @@ public class Country {
     //EFFECTS: create a country with given name, continent, and
     //         rating.
     public Country(String name, String continent, int rating, String desc) {
-        this.countryName = name;
+        this.name = name;
         this.continent = continent;
         this.rating = rating;
         this.description = desc;
     }
 
     public String getCountryName() {
-        return countryName;
+        return name;
     }
 
     public int getRating() {
@@ -47,5 +50,15 @@ public class Country {
     //EFFECTS: change rating to newRating
     public void setRating(int newRating) {
         rating = newRating;
+    }
+
+    @Override
+    public JSONObject toJason() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("continent", continent);
+        json.put("rating", rating);
+        json.put("description", description);
+        return json;
     }
 }

@@ -2,13 +2,18 @@ package ui;
 
 import model.Country;
 import model.ListOfCountry;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.Scanner;
 import java.util.List;
 
 public class MyWorldApp {
+    private static final String storageFile = "./data/myWorld.json";
     private Scanner input;
     private ListOfCountry myWorld;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
     //EFFECTS: run my world application
@@ -44,6 +49,8 @@ public class MyWorldApp {
     //EFFECTS: initialize ListOfCountries and scanner
     private void init() {
         myWorld = new ListOfCountry();
+        jsonReader = new JsonReader(storageFile);
+        jsonWriter = new JsonWriter(storageFile);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
