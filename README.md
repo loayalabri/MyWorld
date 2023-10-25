@@ -23,3 +23,5 @@ photos, and ratings for each country.
  view the photos I have added and view my rating.
 - As a user, I want to be able to save photos of countries I have visited.
 - As a user, I want to be able to change the rating of the countries I have visited.
+- As a user, I want to be able to save the list of my visited countries.
+- As a user, I want to be able to load my list of visited countries.
