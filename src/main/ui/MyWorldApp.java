@@ -5,11 +5,13 @@ import model.ListOfCountry;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
 public class MyWorldApp {
-    private static final String storageFile = "./data/myWorld.json";
+    private static final String STORAGE_FILE = "./data/myWorld.json";
     private Scanner input;
     private ListOfCountry myWorld;
     private JsonWriter jsonWriter;
@@ -49,8 +51,8 @@ public class MyWorldApp {
     //EFFECTS: initialize ListOfCountries and scanner
     private void init() {
         myWorld = new ListOfCountry();
-        jsonReader = new JsonReader(storageFile);
-        jsonWriter = new JsonWriter(storageFile);
+        jsonReader = new JsonReader(STORAGE_FILE);
+        jsonWriter = new JsonWriter(STORAGE_FILE);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -59,8 +61,9 @@ public class MyWorldApp {
     private void welcome() {
         System.out.println("Welcome to My World app");
         System.out.println("\nWhat would you like to do?");
-        System.out.println("\t a -> Add a country");
-        System.out.println("\t q -> Quit");
+        System.out.println("\ta -> Add a country");
+        System.out.println("\tl -> Load your world");
+        System.out.println("\tq -> Quit");
 
     }
 
@@ -80,18 +83,28 @@ public class MyWorldApp {
             case "c":
                 doChangeRating();
                 break;
+            case "l":
+                loadListOfCountry();
+                break;
+            case "s":
+                saveListOfCountry();
+                break;
             default:
                 System.out.println("Invalid Command");
                 break;
         }
     }
 
+
+    // EFFECTS: prints out main menu
     private void displayMainMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Add a new country");
         System.out.println("\tr -> Remove exiting country");
         System.out.println("\td -> Display Countries");
         System.out.println("\tc -> Change rating of a country");
+        System.out.println("\tl -> Load your world");
+        System.out.println("\ts -> save your world");
         System.out.println("\tq -> Quit");
     }
 
@@ -138,6 +151,8 @@ public class MyWorldApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: change rating of a country chosen by user
     private void doChangeRating() {
         String name;
         int newRating;
@@ -177,6 +192,26 @@ public class MyWorldApp {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private void saveListOfCountry() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myWorld);
+            jsonWriter.close();
+            System.out.println("Your world is saved successfully");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save to" + STORAGE_FILE);
+        }
+    }
+
+    private void loadListOfCountry() {
+        try {
+            myWorld = jsonReader.read();
+            System.out.println("Your world is loaded successfully");
+        } catch (IOException e) {
+            System.out.println("Unable to load from file" + STORAGE_FILE);
         }
     }
 }
