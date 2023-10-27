@@ -9,7 +9,10 @@ import persistence.JsonReader;
 import java.io.IOException;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
-
+/*
+The tests in this class are modeled on jsonReaderTest class from JsonSerializationDemo from GitHub
+that can be found https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ */
 
 public class JsonReaderTest extends JsonTest{
 

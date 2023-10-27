@@ -14,7 +14,11 @@ import java.util.stream.Stream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-// Represents reader that reads ListOfCountry from JSON data stored in file
+/*
+Represents reader that reads ListOfCountry from JSON data stored in file
+This class is modeled on jsonReader class from JsonSerializationDemo from GitHub
+that can be found https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ */
 public class JsonReader {
     private String source;
 

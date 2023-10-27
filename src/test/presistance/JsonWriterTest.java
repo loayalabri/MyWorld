@@ -11,13 +11,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/*
+The tests in this class are modeled on jsonWriterTest class from JsonSerializationDemo from GitHub
+that can be found https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ */
 public class JsonWriterTest extends JsonTest {
 
     @Test
     void testWriterIllegalFile() {
         try {
-            ListOfCountry loc = new ListOfCountry();
             JsonWriter writer = new JsonWriter("./data/illegal\0file:Nmae.json");
             writer.open();
             fail("IOException not caught on testWriterIllegalFile");

@@ -7,7 +7,12 @@ import java.io.*;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Represents a writer that write JSON representation to ListOfCountry
+/*
+Represents a writer that write JSON representation to ListOfCountry
+This class is modeled on jsonWriter class from JsonSerializationDemo from GitHub
+that can be found https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ */
+
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
