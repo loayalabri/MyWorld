@@ -1,0 +1,26 @@
+{"countries": [
+    {
+        "continent": "Asia",
+        "name": "Oman",
+        "rating": 10,
+        "description": "Very hot"
+    },
+    {
+        "continent": "North America",
+        "name": "Canada",
+        "rating": 9,
+        "description": "Very Cold"
+    },
+    {
+        "continent": "North America",
+        "name": "USA",
+        "rating": 8,
+        "description": "Big country"
+    },
+    {
+        "continent": "Europe",
+        "name": "France",
+        "rating": 4,
+        "description": "They are French"
+    }
+]}

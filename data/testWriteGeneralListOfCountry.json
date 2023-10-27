@@ -1,0 +1,14 @@
+{"countries": [
+    {
+        "continent": "North America",
+        "name": "Canada",
+        "rating": 7,
+        "description": "Very cold"
+    },
+    {
+        "continent": "Asia",
+        "name": "Oman",
+        "rating": 10,
+        "description": "Very hot"
+    }
+]}

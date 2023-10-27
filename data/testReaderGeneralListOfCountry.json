@@ -1,0 +1,20 @@
+{"countries": [
+  {
+    "continent": "North America",
+    "name": "USA",
+    "rating": 6,
+    "description": "Beautiful and diverse"
+  },
+  {
+    "continent": "Asia",
+    "name": "Oman",
+    "rating": 10,
+    "description": "Kind people"
+  },
+  {
+    "continent": "Africa",
+    "name": "Egypt",
+    "rating": 7,
+    "description": "Great history"
+  }
+]}
