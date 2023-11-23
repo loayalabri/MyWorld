@@ -2,6 +2,8 @@ package presistance;
 
 import model.Country;
 import model.ListOfCountry;
+import model.exceptions.EmptyStringException;
+import model.exceptions.RatingOutOfBoundException;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -42,6 +44,10 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(0, loc.getLength());
         } catch (IOException e) {
             fail("IOException caught on testWriteEmptyListOfCountry");
+        } catch (EmptyStringException e) {
+            fail("EmptyStringException caught");
+        } catch (RatingOutOfBoundException e) {
+            fail("RatingOutOfBoundException caught");
         }
     }
 
@@ -69,6 +75,10 @@ public class JsonWriterTest extends JsonTest {
 
         } catch (IOException e) {
             fail("IOException caught on testWriteGeneralListOfCountry");
+        } catch (EmptyStringException e) {
+            fail("EmptyStringException caught");
+        } catch (RatingOutOfBoundException e) {
+            fail("RatingOutOfBoundException caught");
         }
     }
 }

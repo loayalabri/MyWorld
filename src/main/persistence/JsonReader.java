@@ -4,13 +4,14 @@ package persistence;
 import model.Country;
 import model.ListOfCountry;
 
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import model.exceptions.EmptyStringException;
+import model.exceptions.RatingOutOfBoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,7 +30,7 @@ public class JsonReader {
 
     // EFFECTS: read ListOfCountry and returns it
     // Throws IOException if error occurs when trying to read data from file
-    public ListOfCountry read() throws IOException {
+    public ListOfCountry read() throws IOException, RatingOutOfBoundException, EmptyStringException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseListOfCountry(jsonObject);
@@ -48,7 +49,8 @@ public class JsonReader {
     }
 
     // EFFECTS: parse ListOfCountry from jsonObject and returns it
-    private ListOfCountry parseListOfCountry(JSONObject jsonObject) {
+    private ListOfCountry parseListOfCountry(JSONObject jsonObject) throws RatingOutOfBoundException,
+            EmptyStringException {
         ListOfCountry loc = new ListOfCountry();
         addCountries(loc, jsonObject);
         return loc;
@@ -56,7 +58,8 @@ public class JsonReader {
 
     // MODIFIES: loc
     // EFFECTS: parses countries from JSON object and adds them to ListOfCountry
-    private void addCountries(ListOfCountry loc, JSONObject jsonObject) {
+    private void addCountries(ListOfCountry loc, JSONObject jsonObject) throws RatingOutOfBoundException,
+            EmptyStringException {
         JSONArray jsonArray = jsonObject.getJSONArray("countries");
         for (Object obj : jsonArray) {
             JSONObject nextCountry = (JSONObject) obj;
@@ -66,7 +69,8 @@ public class JsonReader {
 
     // MODIFIES: loc
     // EFFECTS: parses country from JSON object and adds it to ListOfCountry
-    private void addCountry(ListOfCountry loc, JSONObject jsonObject) {
+    private void addCountry(ListOfCountry loc, JSONObject jsonObject) throws RatingOutOfBoundException,
+            EmptyStringException {
         String name = jsonObject.getString("name");
         int rating = jsonObject.getInt("rating");
         String description = jsonObject.getString("description");

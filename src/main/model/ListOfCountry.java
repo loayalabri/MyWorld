@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.CountryNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -10,7 +11,7 @@ import java.util.List;
 
 // Represents the list of countries visited
 public class ListOfCountry implements Writable {
-    private final List<Country> countriesVisited;  //Countries visited
+    private final List<Country> countriesVisited;
 
     //EFFECTS: create an empty list of countries visited
     public ListOfCountry() {
@@ -23,15 +24,22 @@ public class ListOfCountry implements Writable {
         countriesVisited.add(country);
     }
 
-    //REQUIRES: name is a country name in countriesVisited
+
     //MODIFIES: this
-    //EFFECTS: remove latest added country with given name
-    public void removeCountry(String name) {
+    //EFFECTS: remove latest added country with given name,
+    //         if name not found throw CountryNotFoundException
+    public void removeCountry(String name) throws CountryNotFoundException {
+        Country countryToRemove = null;
         for (Country next : countriesVisited) {
             if (next.getCountryName().equals(name)) {
+                countryToRemove = next;
                 countriesVisited.remove(next);
                 break;
             }
+            // Trow Country Not found exception
+        }
+        if (countryToRemove == null) {
+            throw new CountryNotFoundException();
         }
     }
 
@@ -53,15 +61,21 @@ public class ListOfCountry implements Writable {
         return countiesNames;
     }
 
-    //EFFECTS: return the first country added that has a given name
-    public Country getCountryFromName(String name) {
+    //EFFECTS: return the first country added that has a given name,
+    //         if no country found with name throw CountryNotFoundException.
+    public Country getCountryFromName(String name) throws CountryNotFoundException {
         Country country = null;
         for (Country next : countriesVisited) {
             if (next.getCountryName().equals(name)) {
                 country = next;
+                break;
             }
         }
-        return country;
+        if (country == null) {
+            throw new CountryNotFoundException();
+        } else {
+            return country;
+        }
     }
 
     @Override

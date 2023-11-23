@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.EmptyStringException;
+import model.exceptions.RatingOutOfBoundException;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -10,17 +12,25 @@ public class Country implements Writable {
     private int rating;                       // country rating
     private String description;               // description of the country
     private String continent;                 // continent of the country
+    private static final  int MAX_RATING = 10;
+    private static final int MIN_RATING = 0;
 
-    //REQUIRES: name has non-zero length.
-    //          continent has non-zero length.
-    //          rating is in [1-10]
-    //EFFECTS: create a country with given name, continent, and
-    //         rating.
-    public Country(String name, String continent, int rating, String desc) {
-        this.name = name;
-        this.continent = continent;
-        this.rating = rating;
-        this.description = desc;
+    //MODIFIES: this
+    //EFFECTS: create a country with given name, continent, and rating.
+    //         if name or continent are empty strings throw EmptyStringException.
+    //         if rating is not in [MIN_RATING, MAX_RATING], throw RatingOutOfBoundException.
+    public Country(String name, String continent, int rating, String desc) throws RatingOutOfBoundException,
+            EmptyStringException {
+        if (name.length() == 0 || continent.length() == 0) {
+            throw new EmptyStringException();
+        } else if (rating > MAX_RATING || rating < MIN_RATING) {
+            throw new RatingOutOfBoundException();
+        } else {
+            this.name = name;
+            this.continent = continent;
+            this.rating = rating;
+            this.description = desc;
+        }
     }
 
     public String getCountryName() {
@@ -45,11 +55,16 @@ public class Country implements Writable {
         this.description = description;
     }
 
-    //REQUIRES: newRating in [1-10]
+
     //MODIFIES: this
-    //EFFECTS: change rating to newRating
-    public void setRating(int newRating) {
-        rating = newRating;
+    //EFFECTS: change rating to newRating,
+    //         if newRating is not in [MIN_RATING, MAX_RATING], throw RatingOutOfBoundException
+    public void setRating(int newRating) throws RatingOutOfBoundException {
+        if (newRating > MAX_RATING || newRating < MIN_RATING) {
+            throw new RatingOutOfBoundException();
+        } else {
+            rating = newRating;
+        }
     }
 
     @Override
@@ -60,5 +75,10 @@ public class Country implements Writable {
         json.put("rating", rating);
         json.put("description", description);
         return json;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

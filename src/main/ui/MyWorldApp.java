@@ -2,6 +2,9 @@ package ui;
 
 import model.Country;
 import model.ListOfCountry;
+import model.exceptions.CountryNotFoundException;
+import model.exceptions.EmptyStringException;
+import model.exceptions.RatingOutOfBoundException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -10,6 +13,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
+/*
+Represents console user interface for myWorld App.
+ */
 public class MyWorldApp {
     private static final String STORAGE_FILE = "./data/myWorld.json";
     private Scanner input;
@@ -28,21 +34,17 @@ public class MyWorldApp {
     private void runApp() {
         boolean running = true;
         String command;
-
         init();
-
         welcome();
         while (running) {
             command = input.next();
             command = command.toLowerCase();
-
             if (command.equals("q")) {
                 running = false;
                 System.out.println("Thanks for using My World Application");
             } else {
                 processCommand(command);
                 displayMainMenu();
-
             }
         }
     }
@@ -64,7 +66,6 @@ public class MyWorldApp {
         System.out.println("\ta -> Add a country");
         System.out.println("\tl -> Load your world");
         System.out.println("\tq -> Quit");
-
     }
 
     //MODIFIES: this
@@ -128,11 +129,13 @@ public class MyWorldApp {
         System.out.println("\nEnter your rating [0-10]:");
         rating = input.nextInt();
 
-        if (checkRating(rating)) {
+        try {
             myWorld.addCountry(new Country(name, continent, rating, desc));
-            System.out.println(name + " Added successfully");
-        } else {
-            System.out.println(name + " couldn't be added invalid rating entered");
+            System.out.println(name + " was added successfully");
+        } catch (EmptyStringException e) {
+            System.out.println("Add was unsuccessful. Country name and continent cannot be empty names");
+        } catch (RatingOutOfBoundException e) {
+            System.out.println("Add was unsuccessful. Rating out of boundary");
         }
     }
 
@@ -143,11 +146,10 @@ public class MyWorldApp {
         String remove;
         System.out.println("Enter name of the country to be removed:");
         remove = input.next();
-        if (myWorld.getCountriesNames().contains(remove)) {
+        try {
             myWorld.removeCountry(remove);
-            System.out.println(remove + " was removed successfully");
-        } else {
-            System.out.println("Cannot remove a country that is not in the list");
+        } catch (CountryNotFoundException e) {
+            System.out.println("Remove was unsuccessful. Cannot remove a country that is not in your world");
         }
     }
 
@@ -161,16 +163,17 @@ public class MyWorldApp {
         name = input.next();
         System.out.println("Enter you new rating for the country[0-10]:");
         newRating = input.nextInt();
-
-        Country result = myWorld.getCountryFromName(name);
-
-        if (checkRating(newRating)) {
-            if (!(result == null)) {
-                result.setRating(newRating);
-                System.out.println(name + " rating was changed to " + newRating);
-            } else {
-                System.out.println("Change rating was unsuccessful, check spelling");
-            }
+        Country result = null;
+        try {
+            result = myWorld.getCountryFromName(name);
+        } catch (CountryNotFoundException e) {
+            System.out.println("Country not found with name " + name);
+        }
+        try {
+            result.setRating(newRating);
+            System.out.println(name + " rating was changed to " + newRating);
+        } catch (RatingOutOfBoundException e) {
+            System.out.println("Rating is invalid.");
         }
     }
 
@@ -184,16 +187,6 @@ public class MyWorldApp {
         }
     }
 
-    //EFFECTS: check that rating is in [0-10]
-    //         if not start entering country again
-    private Boolean checkRating(int rating) {
-        if (rating > 10 | rating < 0) {
-            System.out.println("Invalid rating, try again");
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     private void saveListOfCountry() {
         try {
@@ -212,6 +205,10 @@ public class MyWorldApp {
             System.out.println("Your world is loaded successfully");
         } catch (IOException e) {
             System.out.println("Unable to load from file" + STORAGE_FILE);
+        } catch (EmptyStringException e) {
+            System.out.println("Error in Country name or continent from file");
+        } catch (RatingOutOfBoundException e) {
+            System.out.println("Error in Country rating from file");
         }
     }
 }

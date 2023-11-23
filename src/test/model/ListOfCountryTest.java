@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.CountryNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -16,9 +17,9 @@ public class ListOfCountryTest {
     @BeforeEach
     void runBefore() {
         testList = new ListOfCountry();
-        testCountry1 = new Country("Canada", "North America", 7, "");
-        testCountry2 = new Country("USA", "North America", 8, "");
-        testCountry3 = new Country("Egypt", "Africa", 9, "");
+        testCountry1 = makeCountrySafely("Canada", "North America", 7, "");
+        testCountry2 = makeCountrySafely("USA", "North America", 8, "");
+        testCountry3 = makeCountrySafely("Egypt", "Africa", 9, "");
     }
 
     @Test
@@ -47,16 +48,24 @@ public class ListOfCountryTest {
 
     @Test
     void testRemoveCountryEmpty() {
-        testList.removeCountry("Oman");
-        assertTrue(testList.getCountriesVisited().isEmpty());
+        try {
+            testList.removeCountry("Oman");
+            fail("CountryNotFoundException not caught");
+        } catch (CountryNotFoundException e) {
+            //pass
+        }
     }
 
     @Test
     void testRemoveCountry() {
         testList.addCountry(testCountry1);
 
-        testList.removeCountry("Canada");
-        assertEquals(0, testList.getLength());
+        try {
+            testList.removeCountry("Canada");
+            assertEquals(0, testList.getLength());
+        } catch (CountryNotFoundException e) {
+            fail("CountryNotFoundException caught");
+        }
     }
 
     @Test
@@ -65,11 +74,16 @@ public class ListOfCountryTest {
         testList.addCountry(testCountry3);
         testList.addCountry(testCountry1);
 
-        testList.removeCountry("Canada");
-        assertEquals(2, testList.getLength());
-        assertFalse(testList.getCountriesVisited().contains(testCountry1));
-        assertTrue(testList.getCountriesVisited().contains(testCountry2));
-        assertTrue(testList.getCountriesVisited().contains(testCountry3));
+        try {
+            testList.removeCountry("Canada");
+            assertEquals(2, testList.getLength());
+            assertFalse(testList.getCountriesVisited().contains(testCountry1));
+            assertTrue(testList.getCountriesVisited().contains(testCountry2));
+            assertTrue(testList.getCountriesVisited().contains(testCountry3));
+        } catch (CountryNotFoundException e) {
+            fail("CountryNotFoundException caught");
+        }
+
     }
 
     @Test
@@ -77,9 +91,13 @@ public class ListOfCountryTest {
         testList.addCountry(testCountry2);
         testList.addCountry(testCountry2);
 
-        testList.removeCountry("USA");
-        assertEquals(1, testList.getLength());
-        assertTrue(testList.getCountriesVisited().contains(testCountry2));
+        try {
+            testList.removeCountry("USA");
+            assertEquals(1, testList.getLength());
+            assertTrue(testList.getCountriesVisited().contains(testCountry2));
+        } catch (CountryNotFoundException e) {
+            fail("CountryNotFoundException caught");
+        }
     }
 
     @Test
@@ -99,8 +117,12 @@ public class ListOfCountryTest {
 
     @Test
     void testGetCountryFromNameNoCountry() {
-        Country result = testList.getCountryFromName("Canada");
-        assertNull(result);
+        try {
+            Country result = testList.getCountryFromName("Canada");
+            fail("CountryNotFoundException caught");
+        } catch (CountryNotFoundException e) {
+           // pass
+        }
     }
 
     @Test
@@ -109,8 +131,25 @@ public class ListOfCountryTest {
         testList.addCountry(testCountry2);
         testList.addCountry(testCountry1);
 
-        Country result = testList.getCountryFromName("Canada");
-        assertEquals(result, testCountry1);
+        try {
+            Country result = testList.getCountryFromName("Canada");
+            assertEquals(result, testCountry1);
+        } catch (CountryNotFoundException e) {
+            fail("CountryNotFoundException caught");
+        }
+
+    }
+
+    //Helper method to create countries with no exceptions thrown
+    private Country makeCountrySafely(String name, String continent, int rating, String desc) {
+        Country country;
+        try {
+            country = new Country(name, continent, rating, desc);
+            return country;
+        } catch (Exception e) {
+            //
+        }
+        return null;
     }
 }
 

@@ -3,6 +3,8 @@ package presistance;
 
 import model.Country;
 import model.ListOfCountry;
+import model.exceptions.EmptyStringException;
+import model.exceptions.RatingOutOfBoundException;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
 
@@ -14,8 +16,8 @@ The tests in this class are modeled on jsonReaderTest class from JsonSerializati
 that can be found https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  */
 
-public class JsonReaderTest extends JsonTest{
 
+public class JsonReaderTest extends JsonTest{
 
     @Test
     void testReaderNoFile() {
@@ -25,6 +27,10 @@ public class JsonReaderTest extends JsonTest{
             fail("IOException not caught on test testReaderNoFile");
         } catch (IOException e) {
             // pass
+        } catch (EmptyStringException e) {
+            fail("EmptyStringException caught");
+        } catch (RatingOutOfBoundException e) {
+            fail("RatingOutOfBoundException caught");
         }
     }
 
@@ -37,6 +43,10 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(0, countries.size());
         } catch (IOException e) {
             fail("IOException caught on testReaderEmptyListOfCountry");
+        } catch (EmptyStringException e) {
+            fail("RatingOutOfBoundException caught");
+        } catch (RatingOutOfBoundException e) {
+            fail("RatingOutOfBoundException caught");
         }
     }
 
@@ -55,6 +65,10 @@ public class JsonReaderTest extends JsonTest{
                     countries.get(2));
         } catch (IOException e) {
             fail("IOException caught on testReaderGeneralListOfCountry");
+        } catch (EmptyStringException e) {
+            fail("EmptyStringException caught");
+        } catch (RatingOutOfBoundException e) {
+            fail("RatingOutOfBoundException caught");
         }
     }
 }
