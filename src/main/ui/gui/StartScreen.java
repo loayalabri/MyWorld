@@ -1,15 +1,14 @@
 package ui.gui;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicProgressBarUI;
-import javax.swing.plaf.metal.MetalProgressBarUI;
-import javax.swing.plaf.multi.MultiProgressBarUI;
-import javax.swing.plaf.synth.SynthProgressBarUI;
 import java.awt.*;
 
+// Represents the startScreen of the application that has a progress bar and
+// welcome message
 public class StartScreen extends JWindow {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 400;
+    private static final Color background = new Color(38, 38, 38);
     private JProgressBar progressBar;
     private JPanel progressPanel;
     private JPanel welcomePanel;
@@ -32,7 +31,7 @@ public class StartScreen extends JWindow {
         progressBar.setUI(new CustomProgressBarUI());
         progressBar.setForeground(new Color(201, 80, 199, 194));
         progressBar.setPreferredSize(new Dimension(300, 30));
-        progressPanel.setBackground(new Color(38, 38, 38));
+        progressPanel.setBackground(background);
         progressPanel.add(progressBar);
     }
 
@@ -44,7 +43,7 @@ public class StartScreen extends JWindow {
         welcome.setVerticalAlignment(JLabel.CENTER);
         welcome.setHorizontalAlignment(JLabel.CENTER);
         welcome.setForeground(new Color(245, 0, 0));
-        welcomePanel.setBackground(new Color(38, 38, 38));
+        welcomePanel.setBackground(background);
         welcomePanel.add(welcome);
     }
 
