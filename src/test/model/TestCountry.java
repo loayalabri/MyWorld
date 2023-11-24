@@ -154,4 +154,9 @@ class TestCountry {
             assertEquals(3, testCountry.getRating());
         }
     }
+
+    @Test
+    void testToString() {
+        assertEquals("Canada", testCountry.toString());
+    }
 }
