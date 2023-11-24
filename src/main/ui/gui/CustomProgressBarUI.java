@@ -10,11 +10,11 @@ public class CustomProgressBarUI extends BasicProgressBarUI {
 
     @Override
     protected Color getSelectionBackground() {
-        return Color.WHITE;  // Change the text color to red (customize as needed)
+        return Color.WHITE;
     }
 
     @Override
     protected Color getSelectionForeground() {
-        return Color.WHITE;  // Change the text color to red (customize as needed)
+        return Color.WHITE;
     }
 }

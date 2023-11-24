@@ -22,6 +22,8 @@ public class AddCountryDialog extends JDialog {
     private JTextField ratingField;
     private JTextArea descField;
 
+    // Modifies: this.
+    // EFFECTS: construct a dialog for adding a country.
     public AddCountryDialog(MyWorldGUI myWorldGUI) {
         this.myWorldGUI = myWorldGUI;
         this.setSize(WIDTH, HEIGHT);
@@ -33,7 +35,7 @@ public class AddCountryDialog extends JDialog {
         this.setVisible(true);
     }
 
-
+    // EFFECTS: initialize topPanel and votPanel.
     private void initializePanels() {
         topPanel = new JPanel();
         topPanel.setBounds(0, 0, 400, 400);
@@ -44,14 +46,17 @@ public class AddCountryDialog extends JDialog {
         this.add(botPanel);
     }
 
+    // EFFECTS: initialize the submit button in the botPanel
     private void initializeButton() {
         JButton addButton = new JButton();
-        addButton.setText("Add");
+        addButton.setText("Submit");
         addButton.setPreferredSize(new Dimension(100, 40));
         addButton.addActionListener(e -> doAddCountry());
         botPanel.add(addButton);
     }
 
+    // EFFECTS: initialize textFields for country name, continent, rating, and
+    //          textArea for description.
     private void initializeTextFields() {
         initializeLabels();
         nameField = new JTextField();
@@ -71,6 +76,8 @@ public class AddCountryDialog extends JDialog {
         topPanel.add(descField);
     }
 
+    // EFFECTS: initialize labels for textFields indicating to the user what
+    //          should go in each field.
     private void initializeLabels() {
         JLabel nameLabel = new JLabel("Country Name");
         nameLabel.setBounds(50, 50, 100, 30);
@@ -86,6 +93,9 @@ public class AddCountryDialog extends JDialog {
         topPanel.add(descLabel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a country with given name, continent, rating, and description
+    //          from textFields then updates the countryList in myWorldGUI.
     private void doAddCountry() {
         String countryName = nameField.getText();
         String continentName = continentField.getText();
@@ -105,6 +115,8 @@ public class AddCountryDialog extends JDialog {
         }
     }
 
+    // EFFECTS: return the integer value of a given String, if String is empty,
+    //          return -1.
     private int toInteger(String text) {
         if (text.isEmpty()) {
             return -1;

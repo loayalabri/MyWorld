@@ -29,6 +29,8 @@ public class MyWorldGUI {
     private JSplitPane midPanel;
     private JPanel botPanel;
 
+    // MODIFIES: this
+    // EFFECTS: construct a JFrame for the application and initialize its fields.
     public MyWorldGUI() {
         frame = new JFrame("My World");
         frame.setSize(WIDTH, HEIGHT);
@@ -42,12 +44,15 @@ public class MyWorldGUI {
         frame.setLocationRelativeTo(null);
     }
 
+    // EFFECTS: initialize myWorld, jsonReader and jsonWriter.
     private void initializeFields() {
         myWorld = new ListOfCountry();
         jsonReader = new JsonReader(STORAGE_FILE);
         jsonWriter = new JsonWriter(STORAGE_FILE);
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize the graphical components in the frame
     private void initializeGraphics() {
         initializePanels();
         initializeMainText();
@@ -55,6 +60,8 @@ public class MyWorldGUI {
         initializeMidPanelComponents();
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize topPanel, midPanel, and botPanel.
     private void initializePanels() {
         topPanel = new JPanel();
         midPanel = new JSplitPane();
@@ -69,6 +76,8 @@ public class MyWorldGUI {
 
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize the components of midPanel.
     private void initializeMidPanelComponents() {
         JPanel panel = new JPanel(new GridLayout(5,1));
         JLabel nameLabel = new JLabel();
@@ -93,6 +102,7 @@ public class MyWorldGUI {
         });
     }
 
+    // EFFECTS: display info of selected country in the right component of midPanel.
     private void displayCountryInfo(JLabel nameLabel, JLabel continentLabel, JLabel ratingLabel, JTextArea descLabel) {
         Country selectedCountry = countryList.getSelectedValue();
         if (selectedCountry != null) {
@@ -103,6 +113,8 @@ public class MyWorldGUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: update listModel with visitedCountries in myWorld.
     public void updateCountryList() {
         listModel.clear();
         for (Country next : myWorld.getCountriesVisited()) {
@@ -112,19 +124,23 @@ public class MyWorldGUI {
 
 
 
+    // MODIFIES: this.
+    // EFFECTS: initialize the main logo on top center.
     private void initializeMainText() {
-        ImageIcon imageIcon = scaleIcon(new ImageIcon("./data/MyWorldIcon.png"), 200, 100);
-        JLabel iconLabel = new JLabel(imageIcon);
-        iconLabel.setOpaque(true);
+        ImageIcon imageIcon = scaleIcon(new ImageIcon("./data/WorldIcon.png"), 100, 100);
+        JLabel iconLabel = new JLabel("My World!");
+        iconLabel.setIcon(imageIcon);
         iconLabel.setHorizontalTextPosition(JLabel.CENTER);
-        iconLabel.setVerticalTextPosition(JLabel.CENTER);
-        iconLabel.setForeground(Color.BLUE);
-        iconLabel.setFont(new Font("Times News Roman", Font.PLAIN, 50));
+        iconLabel.setOpaque(true);
+        iconLabel.setForeground(Color.BLACK);
+        iconLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 50));
         iconLabel.setVerticalAlignment(JLabel.TOP);
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         topPanel.add(iconLabel);
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize buttons for add, remove, save, load.
     private void initializeButtons() {
         final int BUTTON_WIDTH = 150;
         final int BUTTON_HEIGHT = 75;
@@ -139,6 +155,8 @@ public class MyWorldGUI {
         botPanel.add(saveButton);
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize saveButton and returns it.
     private JButton initializeSaveButton(int buttonWidth, int buttonHeight, Font textFont) {
         JButton saveButton = new JButton("Save Data");
         ImageIcon saveIcon = scaleIcon(new ImageIcon("./data/SaveIcon.png"), 50, 50);
@@ -151,6 +169,8 @@ public class MyWorldGUI {
         return saveButton;
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize loadButton and returns it.
     private JButton initializeLoadButton(int buttonWidth, int buttonHeight, Font textFont) {
         JButton loadButton = new JButton("Load Data");
         ImageIcon loadIcon = scaleIcon(new ImageIcon("./data/LoadIcon.png"), 50, 50);
@@ -163,6 +183,8 @@ public class MyWorldGUI {
         return loadButton;
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize removeButton and returns it.
     private JButton initializeRemoveButton(int buttonWidth, int buttonHeight, Font textFont) {
         JButton removeButton = new JButton("Remove Country");
         ImageIcon removeIcon = scaleIcon(new ImageIcon("./data/RemoveIcon.png"), 50, 50);
@@ -175,6 +197,8 @@ public class MyWorldGUI {
         return removeButton;
     }
 
+    // MODIFIES: this.
+    // EFFECTS: initialize addButton and returns it.
     private JButton initializeAddButton(int buttonWidth, int buttonHeight, Font textFont) {
         JButton addButton = new JButton("Add Country");
         ImageIcon addIcon = scaleIcon(new ImageIcon("./data/AddIcon.png"),50,50);
@@ -187,6 +211,8 @@ public class MyWorldGUI {
         return addButton;
     }
 
+    // MODIFIES: STORAGE_FILE
+    // EFFECTS: save countryList to STORAGE_FILE.
     private void doSaveData() {
         try {
             jsonWriter.open();
@@ -200,6 +226,8 @@ public class MyWorldGUI {
         }
     }
 
+    // MODIFIES: STORAGE_FILE
+    // EFFECTS: load countryList from STORAGE_FILE.
     private void doLoadData() {
         try {
             myWorld = jsonReader.read();
@@ -218,14 +246,20 @@ public class MyWorldGUI {
         }
     }
 
+    // MODIFIES: this.
+    // EFFECTS: display dialog for removing a country.
     private void doRemoveCountry() {
         new RemoveCountryDialog(this);
     }
 
+    // MODIFIES: this.
+    // EFFECTS: display dialog for adding a country.
     private void doAddCountry() {
         new AddCountryDialog(this);
     }
 
+    // MODIFIES: imageIcon
+    // EFFECTS: helper method to scale a given imageIcon with given width and height.
     private ImageIcon scaleIcon(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -233,6 +267,7 @@ public class MyWorldGUI {
         return resizedIcon;
     }
 
+    // EFFECTS: return myWorld
     public ListOfCountry getCountries() {
         return myWorld;
     }

@@ -13,6 +13,8 @@ public class StartScreen extends JWindow {
     private JPanel progressPanel;
     private JPanel welcomePanel;
 
+    // MODIFIES: this.
+    // EFFECTS: constructs a window for the startScreen.
     public StartScreen() {
         this.setLayout(null);
         this.setSize(WIDTH,HEIGHT);
@@ -23,6 +25,8 @@ public class StartScreen extends JWindow {
         this.setLocationRelativeTo(null);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize the progress bar.
     private void initializeProgressPanel() {
         progressPanel = new JPanel();
         progressPanel.setBounds(0, 200, WIDTH,200);
@@ -35,10 +39,12 @@ public class StartScreen extends JWindow {
         progressPanel.add(progressBar);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize welcomePanel with welcome text.
     private void initializeWelcomePanel() {
         welcomePanel = new JPanel(new BorderLayout());
         welcomePanel.setBounds(0, 0,400,200);
-        JLabel welcome = new JLabel("Welcome!!");
+        JLabel welcome = new JLabel("WELCOME!!");
         welcome.setFont(new Font("Monospaced", Font.BOLD, 60));
         welcome.setVerticalAlignment(JLabel.CENTER);
         welcome.setHorizontalAlignment(JLabel.CENTER);
@@ -47,6 +53,9 @@ public class StartScreen extends JWindow {
         welcomePanel.add(welcome);
     }
 
+    // MODIFIES: this
+    // EFFECTS: update the progress bar by progress.
+    // **this method is inspired from several posts in StackOverFlow.
     public void updateProgressBar(int progress) {
         SwingUtilities.invokeLater(() -> progressBar.setValue(progress));
     }
