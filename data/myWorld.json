@@ -1,14 +1,44 @@
 {"countries": [
     {
-        "continent": "Aisa",
+        "continent": "Asia",
         "name": "Oman",
         "rating": 10,
-        "description": "Very Hot!!"
+        "description": "Hot Country, but facinating."
     },
     {
         "continent": "North America",
         "name": "Canada",
+        "rating": 7,
+        "description": "Very Cold country and nice people except in Vancouver and Toronto"
+    },
+    {
+        "continent": "Asia",
+        "name": "Turkey",
+        "rating": 4,
+        "description": "Amazing country, but very rude people"
+    },
+    {
+        "continent": "Asia",
+        "name": "United Arab Emirates",
         "rating": 8,
-        "description": "Very Cold!!!"
+        "description": "Very nice and developed."
+    },
+    {
+        "continent": "Africa",
+        "name": "Morocco",
+        "rating": 8,
+        "description": "Old country with interesting historical cities mixed with modern architecture"
+    },
+    {
+        "continent": "North America",
+        "name": "United States of America",
+        "rating": 6,
+        "description": "Big and diverse. You can find everything. However, most cities are not safe."
+    },
+    {
+        "continent": "Europe",
+        "name": "France",
+        "rating": 2,
+        "description": "Only has the Eiffle tower"
     }
 ]}

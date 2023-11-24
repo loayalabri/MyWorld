@@ -5,6 +5,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 // Custom document filter to allow integer input only for ratingField.
+// This class is inspired by several posts in StackOverFlow and other
+// similar websites.
 public class IntegerDocumentFilter extends DocumentFilter {
 
     @Override

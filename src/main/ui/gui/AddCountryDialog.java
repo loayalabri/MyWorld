@@ -9,10 +9,11 @@ import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import java.awt.*;
 
+// Represents a dialog for adding a country
 public class AddCountryDialog extends JDialog {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 500;
-    private MyWorldGUI myWorldGUI;
+    private final MyWorldGUI myWorldGUI;
     private JPanel topPanel;
     private JPanel botPanel;
 
@@ -88,7 +89,7 @@ public class AddCountryDialog extends JDialog {
     private void doAddCountry() {
         String countryName = nameField.getText();
         String continentName = continentField.getText();
-        int rating = Integer.parseInt(ratingField.getText());
+        int rating = toInteger(ratingField.getText());
         String description = descField.getText();
         ListOfCountry myWorld = myWorldGUI.getCountries();
         try {
@@ -101,6 +102,14 @@ public class AddCountryDialog extends JDialog {
         } catch (EmptyStringException e) {
             JOptionPane.showMessageDialog(this, "Invalid Country or Continent name",
                     "Empty Name Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private int toInteger(String text) {
+        if (text.isEmpty()) {
+            return -1;
+        } else {
+            return Integer.parseInt(text);
         }
     }
 }

@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
+// Represents a GUI for myWorld Application
 public class MyWorldGUI {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 700;
@@ -19,20 +20,15 @@ public class MyWorldGUI {
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;
 
-    private JFrame frame;
+    private final JFrame frame;
 
-    private JList<Country> countryList;
-    private DefaultListModel<Country> listModel;
+    private final JList<Country> countryList;
+    private final DefaultListModel<Country> listModel;
 
     private JPanel topPanel;
     private JSplitPane midPanel;
     private JPanel botPanel;
 
-    private JButton addButton;
-    private JButton removeButton;
-    private JButton loadButton;
-    private JButton saveButton;
-    
     public MyWorldGUI() {
         frame = new JFrame("My World");
         frame.setSize(WIDTH, HEIGHT);
@@ -43,6 +39,7 @@ public class MyWorldGUI {
         initializeFields();
         initializeGraphics();
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     private void initializeFields() {
@@ -77,25 +74,33 @@ public class MyWorldGUI {
         JLabel nameLabel = new JLabel();
         JLabel continentLabel = new JLabel();
         JLabel ratingLabel = new JLabel();
-        JLabel descLabel = new JLabel();
+        JTextArea descLabel = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(descLabel);
+        descLabel.setLineWrap(true);
+        descLabel.setWrapStyleWord(true);
+        descLabel.setEditable(false);
         panel.add(nameLabel);
         panel.add(continentLabel);
         panel.add(ratingLabel);
-        panel.add(descLabel);
+        panel.add(scrollPane);
         countryList.setModel(listModel);
         midPanel.setLeftComponent(new JScrollPane(countryList));
         midPanel.setRightComponent(panel);
         frame.add(midPanel, BorderLayout.CENTER);
-        updateCountryList();
+        midPanel.setEnabled(false);
         countryList.getSelectionModel().addListSelectionListener(e -> {
-            Country selectedCountry = countryList.getSelectedValue();
-            if (selectedCountry != null) {
-                nameLabel.setText("Name: " + selectedCountry.getCountryName());
-                continentLabel.setText("Continent: " + selectedCountry.getContinent());
-                ratingLabel.setText("Rating: " + selectedCountry.getRating());
-                descLabel.setText("Description: " + selectedCountry.getDescription());
-            }
+            displayCountryInfo(nameLabel, continentLabel, ratingLabel, descLabel);
         });
+    }
+
+    private void displayCountryInfo(JLabel nameLabel, JLabel continentLabel, JLabel ratingLabel, JTextArea descLabel) {
+        Country selectedCountry = countryList.getSelectedValue();
+        if (selectedCountry != null) {
+            nameLabel.setText("Name: " + selectedCountry.getCountryName());
+            continentLabel.setText("Continent: " + selectedCountry.getContinent());
+            ratingLabel.setText("Rating: " + selectedCountry.getRating());
+            descLabel.setText("Description: " + selectedCountry.getDescription());
+        }
     }
 
     public void updateCountryList() {
@@ -108,7 +113,7 @@ public class MyWorldGUI {
 
 
     private void initializeMainText() {
-        ImageIcon imageIcon = scaleIcon(new ImageIcon("./data/MyWorldIcon.png"));
+        ImageIcon imageIcon = scaleIcon(new ImageIcon("./data/MyWorldIcon.png"), 200, 100);
         JLabel iconLabel = new JLabel(imageIcon);
         iconLabel.setOpaque(true);
         iconLabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -123,26 +128,63 @@ public class MyWorldGUI {
     private void initializeButtons() {
         final int BUTTON_WIDTH = 150;
         final int BUTTON_HEIGHT = 75;
-        addButton = new JButton();
-        addButton.setText("Add Country");
-        addButton.addActionListener(e -> doAddCountry());
-        addButton.setBounds(20, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-        removeButton = new JButton();
-        removeButton.setText("Remove country");
-        removeButton.addActionListener(e -> doRemoveCountry());
-        removeButton.setBounds(220, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-        loadButton = new JButton();
-        loadButton.setText("Load Data");
-        loadButton.addActionListener(e -> doLoadData());
-        loadButton.setBounds(420, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-        saveButton = new JButton();
-        saveButton.setText("Save Data");
-        saveButton.addActionListener(e -> doSaveData());
-        saveButton.setBounds(620, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+        Font textFont = new Font("Lucida Grande", Font.PLAIN, 16);
+        JButton addButton = initializeAddButton(BUTTON_WIDTH, BUTTON_HEIGHT, textFont);
+        JButton removeButton = initializeRemoveButton(BUTTON_WIDTH, BUTTON_HEIGHT, textFont);
+        JButton loadButton = initializeLoadButton(BUTTON_WIDTH, BUTTON_HEIGHT, textFont);
+        JButton saveButton = initializeSaveButton(BUTTON_WIDTH, BUTTON_HEIGHT, textFont);
         botPanel.add(addButton);
         botPanel.add(removeButton);
         botPanel.add(loadButton);
         botPanel.add(saveButton);
+    }
+
+    private JButton initializeSaveButton(int buttonWidth, int buttonHeight, Font textFont) {
+        JButton saveButton = new JButton("Save Data");
+        ImageIcon saveIcon = scaleIcon(new ImageIcon("./data/SaveIcon.png"), 50, 50);
+        saveButton.addActionListener(e -> doSaveData());
+        saveButton.setBounds(620, 0, buttonWidth, buttonHeight);
+        saveButton.setIcon(saveIcon);
+        saveButton.setHorizontalTextPosition(AbstractButton.LEFT);
+        saveButton.setIconTextGap(30);
+        saveButton.setFont(textFont);
+        return saveButton;
+    }
+
+    private JButton initializeLoadButton(int buttonWidth, int buttonHeight, Font textFont) {
+        JButton loadButton = new JButton("Load Data");
+        ImageIcon loadIcon = scaleIcon(new ImageIcon("./data/LoadIcon.png"), 50, 50);
+        loadButton.addActionListener(e -> doLoadData());
+        loadButton.setBounds(420, 0, buttonWidth, buttonHeight);
+        loadButton.setIcon(loadIcon);
+        loadButton.setIconTextGap(30);
+        loadButton.setFont(textFont);
+        loadButton.setHorizontalTextPosition(AbstractButton.LEFT);
+        return loadButton;
+    }
+
+    private JButton initializeRemoveButton(int buttonWidth, int buttonHeight, Font textFont) {
+        JButton removeButton = new JButton("Remove Country");
+        ImageIcon removeIcon = scaleIcon(new ImageIcon("./data/RemoveIcon.png"), 50, 50);
+        removeButton.addActionListener(e -> doRemoveCountry());
+        removeButton.setBounds(220, 0, buttonWidth, buttonHeight);
+        removeButton.setIcon(removeIcon);
+        removeButton.setIconTextGap(30);
+        removeButton.setFont(textFont);
+        removeButton.setHorizontalTextPosition(AbstractButton.LEFT);
+        return removeButton;
+    }
+
+    private JButton initializeAddButton(int buttonWidth, int buttonHeight, Font textFont) {
+        JButton addButton = new JButton("Add Country");
+        ImageIcon addIcon = scaleIcon(new ImageIcon("./data/AddIcon.png"),50,50);
+        addButton.addActionListener(e -> doAddCountry());
+        addButton.setBounds(20, 0, buttonWidth, buttonHeight);
+        addButton.setIcon(addIcon);
+        addButton.setIconTextGap(30);
+        addButton.setFont(textFont);
+        addButton.setHorizontalTextPosition(AbstractButton.LEFT);
+        return addButton;
     }
 
     private void doSaveData() {
@@ -184,18 +226,14 @@ public class MyWorldGUI {
         new AddCountryDialog(this);
     }
 
-    private ImageIcon scaleIcon(ImageIcon imageIcon) {
+    private ImageIcon scaleIcon(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+        Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(resizedImage);
         return resizedIcon;
     }
 
     public ListOfCountry getCountries() {
         return myWorld;
-    }
-
-    public static void main(String[] args) {
-        MyWorldGUI myWorldGUI = new MyWorldGUI();
     }
 }

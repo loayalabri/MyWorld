@@ -6,14 +6,15 @@ import model.exceptions.CountryNotFoundException;
 import javax.swing.*;
 import java.awt.*;
 
-// Represents a Frame to remove a country
+// Represents a Dialog for removing a country
 public class RemoveCountryDialog extends JDialog {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 200;
+    private final MyWorldGUI myWorldGUI;
     JTextField countryToRemove;
     JPanel topPanel;
     JPanel botPanel;
-    private MyWorldGUI myWorldGUI;
+
 
     public RemoveCountryDialog(MyWorldGUI myWorldGUI) {
         this.myWorldGUI = myWorldGUI;
