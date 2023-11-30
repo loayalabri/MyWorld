@@ -182,8 +182,7 @@ public class MyWorldApp {
         if (myWorld.getCountriesVisited().isEmpty()) {
             System.out.println("You have no countries");
         } else {
-            List<String> countries = myWorld.getCountriesNames();
-            System.out.println(countries);
+            System.out.println(myWorld.getCountriesVisited());
         }
     }
 

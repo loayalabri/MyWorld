@@ -1,6 +1,8 @@
 package model;
 
 import model.exceptions.CountryNotFoundException;
+import model.log.Event;
+import model.log.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -21,6 +23,7 @@ public class ListOfCountry implements Writable {
     //MODIFIES: this
     //EFFECTS: add country to countriesVisited
     public void addCountry(Country country) {
+        EventLog.getInstance().logEvent(new Event(country.getCountryName() + " was added"));
         countriesVisited.add(country);
     }
 
@@ -33,6 +36,7 @@ public class ListOfCountry implements Writable {
         for (Country next : countriesVisited) {
             if (next.getCountryName().equals(name)) {
                 countryToRemove = next;
+                EventLog.getInstance().logEvent(new Event(countryToRemove.getCountryName() + " was removed"));
                 countriesVisited.remove(next);
                 break;
             }
@@ -49,16 +53,6 @@ public class ListOfCountry implements Writable {
 
     public List<Country> getCountriesVisited() {
         return countriesVisited;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: return a list of names of visited countries
-    public List<String> getCountriesNames() {
-        List<String> countiesNames = new ArrayList<>();
-        for (Country next : countriesVisited) {
-            countiesNames.add(next.getCountryName());
-        }
-        return countiesNames;
     }
 
     //EFFECTS: return the first country added that has a given name,

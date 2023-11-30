@@ -90,7 +90,7 @@ class TestCountry {
 
     @Test
     void testCreateDescription() {
-        testCountry.createDescription("Canada is one of the best countries I visited");
+        testCountry.setDescription("Canada is one of the best countries I visited");
         assertEquals("Canada is one of the best countries I visited", testCountry.getDescription());
     }
 

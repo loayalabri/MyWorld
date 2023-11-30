@@ -100,19 +100,6 @@ public class ListOfCountryTest {
         }
     }
 
-    @Test
-    void testGetCountriesNames() {
-        testList.addCountry(testCountry1);
-        testList.addCountry(testCountry2);
-        testList.addCountry(testCountry3);
-
-        List<String> result = testList.getCountriesNames();
-
-        assertEquals(3, result.size());
-        assertTrue(result.contains("Canada"));
-        assertTrue(result.contains("USA"));
-        assertTrue(result.contains("Egypt"));
-    }
 
 
     @Test

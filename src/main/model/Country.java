@@ -2,16 +2,18 @@ package model;
 
 import model.exceptions.EmptyStringException;
 import model.exceptions.RatingOutOfBoundException;
+import model.log.Event;
+import model.log.EventLog;
 import org.json.JSONObject;
 import persistence.Writable;
 
 // Represents a country that have name, rating (from 1 to 10), continent,
 // description, and photos.
 public class Country implements Writable {
-    private String name;               // the country name
-    private int rating;                       // country rating
-    private String description;               // description of the country
-    private String continent;                 // continent of the country
+    private String name;
+    private int rating;
+    private String description;
+    private String continent;
     private static final  int MAX_RATING = 10;
     private static final int MIN_RATING = 0;
 
@@ -51,7 +53,7 @@ public class Country implements Writable {
 
     // MODIFIES: this
     // EFFECTS: set given text to description
-    public void createDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -63,6 +65,7 @@ public class Country implements Writable {
         if (newRating > MAX_RATING || newRating < MIN_RATING) {
             throw new RatingOutOfBoundException();
         } else {
+            EventLog.getInstance().logEvent(new Event("Change rating of " + getCountryName()));
             rating = newRating;
         }
     }
@@ -81,4 +84,5 @@ public class Country implements Writable {
     public String toString() {
         return name;
     }
+    
 }

@@ -25,3 +25,19 @@ photos, and ratings for each country.
 - As a user, I want to be able to change the rating of the countries I have visited.
 - As a user, I want to be able to save the list of my visited countries.
 - As a user, I want to be able to load my list of visited countries.
+
+### Phase 4: Task 2
+Wed Nov 29 19:22:02 PST 2023\
+Canada was added\
+Wed Nov 29 19:22:25 PST 2023\
+USA was added\
+Wed Nov 29 19:22:52 PST 2023\
+Mexico was added\
+Wed Nov 29 19:23:03 PST 2023\
+USA was removed\
+Wed Nov 29 19:23:12 PST 2023\
+Mexico was removed\
+Wed Nov 29 19:23:15 PST 2023\
+Countries Saved
+
+### Phase 4: Task 3

@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 
 import model.exceptions.EmptyStringException;
 import model.exceptions.RatingOutOfBoundException;
+import model.log.Event;
+import model.log.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,6 +35,7 @@ public class JsonReader {
     public ListOfCountry read() throws IOException, RatingOutOfBoundException, EmptyStringException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
+        EventLog.getInstance().logEvent(new Event("Countries loaded"));
         return parseListOfCountry(jsonObject);
     }
 

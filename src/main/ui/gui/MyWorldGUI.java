@@ -4,11 +4,14 @@ import model.Country;
 import model.ListOfCountry;
 import model.exceptions.EmptyStringException;
 import model.exceptions.RatingOutOfBoundException;
+import model.log.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 
 // Represents a GUI for myWorld Application
@@ -42,6 +45,13 @@ public class MyWorldGUI {
         initializeGraphics();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog.getInstance().printLog();
+                System.exit(0);
+            }
+        });
     }
 
     // EFFECTS: initialize myWorld, jsonReader and jsonWriter.

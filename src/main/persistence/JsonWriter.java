@@ -1,6 +1,8 @@
 package persistence;
 
 import model.ListOfCountry;
+import model.log.Event;
+import model.log.EventLog;
 import org.json.JSONObject;
 import java.io.*;
 
@@ -34,6 +36,7 @@ public class JsonWriter {
     // EFFECTS: writes JSON representation of ListOfCountry to file
     public void write(ListOfCountry myWorld) {
         JSONObject json = myWorld.toJason();
+        EventLog.getInstance().logEvent(new Event("Countries Saved"));
         saveToFile(json.toString(TAB));
     }
 
@@ -46,7 +49,4 @@ public class JsonWriter {
     public void close() {
         writer.close();
     }
-
-
-
 }

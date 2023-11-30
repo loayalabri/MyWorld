@@ -24,11 +24,13 @@ public class GuiMain {
                         timer.cancel();
                     }
                 }
-            },0, 500);
+            },0,500);
         });
     }
 
     private static void createMainGui() {
-        new MyWorldGUI();
+        new MyWorldGUI() {
+
+        };
     }
 }
