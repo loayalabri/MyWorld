@@ -26,6 +26,7 @@ public class Main {
                         startScreen.setVisible(false);
                         timer.cancel();
                         myWorldGUI = new MyWorldGUI();
+                        myWorldGUI.setVisible();
                     }
                 }
             },0,25);

@@ -43,7 +43,6 @@ public class MyWorldGUI {
         listModel = new DefaultListModel<>();
         initializeFields();
         initializeGraphics();
-        frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -280,5 +279,9 @@ public class MyWorldGUI {
     // EFFECTS: return myWorld
     public ListOfCountry getCountries() {
         return myWorld;
+    }
+
+    public void setVisible() {
+        frame.setVisible(true);
     }
 }
