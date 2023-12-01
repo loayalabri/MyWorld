@@ -4,6 +4,7 @@ import model.Country;
 import model.ListOfCountry;
 import model.exceptions.EmptyStringException;
 import model.exceptions.RatingOutOfBoundException;
+import model.log.Event;
 import model.log.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -47,7 +48,9 @@ public class MyWorldGUI {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                EventLog.getInstance().printLog();
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event);
+                }
                 System.exit(0);
             }
         });
@@ -272,8 +275,7 @@ public class MyWorldGUI {
     private ImageIcon scaleIcon(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-        return resizedIcon;
+        return new ImageIcon(resizedImage);
     }
 
     // EFFECTS: return myWorld

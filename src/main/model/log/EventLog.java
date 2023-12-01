@@ -44,12 +44,6 @@ public class EventLog implements Iterable<Event> {
         events.add(e);
     }
 
-    public void printLog() {
-        for (Event e : events) {
-            System.out.println(e);
-        }
-    }
-
     /**
      * Clears the event log and logs the event.
      */
