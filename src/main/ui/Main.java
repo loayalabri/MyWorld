@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 public class Main {
     private static StartScreen startScreen;
+    private static MyWorldGUI myWorldGUI;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -19,15 +20,15 @@ public class Main {
                 int progress = 0;
                 @Override
                 public void run() {
-                    progress += 10;
+                    progress += 1;
                     startScreen.updateProgressBar(progress);
                     if (progress >= 100) {
                         startScreen.setVisible(false);
                         timer.cancel();
-                        new MyWorldGUI();
+                        myWorldGUI = new MyWorldGUI();
                     }
                 }
-            },0,500);
+            },0,25);
         });
     }
 }
