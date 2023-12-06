@@ -32,6 +32,7 @@ public class AddCountryDialog extends JDialog {
         initializePanels();
         initializeButton();
         initializeTextFields();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

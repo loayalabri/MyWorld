@@ -2,6 +2,7 @@ package ui.gui;
 
 import model.Country;
 import model.ListOfCountry;
+import model.exceptions.CountryNotFoundException;
 import model.exceptions.EmptyStringException;
 import model.exceptions.RatingOutOfBoundException;
 import model.log.Event;
@@ -32,6 +33,10 @@ public class MyWorldGUI {
     private JPanel topPanel;
     private JSplitPane midPanel;
     private JPanel botPanel;
+    private JLabel nameLabel;
+    private JLabel continentLabel;
+    private JLabel ratingLabel;
+    private JTextArea descLabel;
 
     // MODIFIES: this
     // EFFECTS: construct a JFrame for the application and initialize its fields.
@@ -91,31 +96,29 @@ public class MyWorldGUI {
     // MODIFIES: this.
     // EFFECTS: initialize the components of midPanel.
     private void initializeMidPanelComponents() {
-        JPanel panel = new JPanel(new GridLayout(5,1));
-        JLabel nameLabel = new JLabel();
-        JLabel continentLabel = new JLabel();
-        JLabel ratingLabel = new JLabel();
-        JTextArea descLabel = new JTextArea();
+        JPanel rightPanel = new JPanel(new GridLayout(5,1));
+        nameLabel = new JLabel();
+        continentLabel = new JLabel();
+        ratingLabel = new JLabel();
+        descLabel = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(descLabel);
         descLabel.setLineWrap(true);
         descLabel.setWrapStyleWord(true);
         descLabel.setEditable(false);
-        panel.add(nameLabel);
-        panel.add(continentLabel);
-        panel.add(ratingLabel);
-        panel.add(scrollPane);
+        rightPanel.add(nameLabel);
+        rightPanel.add(continentLabel);
+        rightPanel.add(ratingLabel);
+        rightPanel.add(scrollPane);
         countryList.setModel(listModel);
         midPanel.setLeftComponent(new JScrollPane(countryList));
-        midPanel.setRightComponent(panel);
+        midPanel.setRightComponent(rightPanel);
         frame.add(midPanel, BorderLayout.CENTER);
         midPanel.setEnabled(false);
-        countryList.getSelectionModel().addListSelectionListener(e -> {
-            displayCountryInfo(nameLabel, continentLabel, ratingLabel, descLabel);
-        });
+        countryList.getSelectionModel().addListSelectionListener(e -> displayCountryInfo());
     }
 
     // EFFECTS: display info of selected country in the right component of midPanel.
-    private void displayCountryInfo(JLabel nameLabel, JLabel continentLabel, JLabel ratingLabel, JTextArea descLabel) {
+    private void displayCountryInfo() {
         Country selectedCountry = countryList.getSelectedValue();
         if (selectedCountry != null) {
             nameLabel.setText("Name: " + selectedCountry.getCountryName());
@@ -133,7 +136,6 @@ public class MyWorldGUI {
             listModel.addElement(next);
         }
     }
-
 
 
     // MODIFIES: this.
@@ -261,7 +263,27 @@ public class MyWorldGUI {
     // MODIFIES: this.
     // EFFECTS: display dialog for removing a country.
     private void doRemoveCountry() {
-        new RemoveCountryDialog(this);
+//        new RemoveCountryDialog(this);
+        int selectedIndex = countryList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            Country selectedCountry = listModel.getElementAt(selectedIndex);
+            try {
+                myWorld.removeCountry(selectedCountry.getCountryName());
+                updateCountryList();
+                nameLabel.setText("");
+                continentLabel.setText("");
+                descLabel.setText("");
+                ratingLabel.setText("");
+                JOptionPane.showMessageDialog(frame, selectedCountry + " was removed successfully",
+                        "Country Removed", JOptionPane.INFORMATION_MESSAGE);
+            } catch (CountryNotFoundException e) {
+                JOptionPane.showMessageDialog(frame,   " Select country to remove",
+                        "Select Country to remove", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame,   " Select country to remove",
+                    "Select Country to remove", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     // MODIFIES: this.

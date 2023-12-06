@@ -41,5 +41,11 @@ Wed Nov 29 19:23:15 PST 2023\
 Countries Saved
 
 ### Phase 4: Task 3
+[UML_Design_Diagram.pdf](data%2FUML_Design_Diagram.pdf)\
+**Improvements:**
+If I would improve the design of the project, I would add a message printer 
+class that will be responsible for error and warning messages because there
+are a lot of messages, and they all share similar properties. Also, JsonWriter and 
+JsonReader could have implemented singleton pattern because there is always only one 
+object of both of them.
 
-[UML_Design_Diagram.pdf](data%2FUML_Design_Diagram.pdf)
