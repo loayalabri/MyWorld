@@ -40,7 +40,6 @@ public class ListOfCountry implements Writable {
                 countriesVisited.remove(next);
                 break;
             }
-            // Trow Country Not found exception
         }
         if (countryToRemove == null) {
             throw new CountryNotFoundException();

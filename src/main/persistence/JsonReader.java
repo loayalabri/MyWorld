@@ -78,8 +78,10 @@ public class JsonReader {
         int rating = jsonObject.getInt("rating");
         String description = jsonObject.getString("description");
         String continent = jsonObject.getString("continent");
+        String image = jsonObject.getString("image");
 
         Country country = new Country(name, continent, rating, description);
+        country.setImagePath(image);
         loc.addCountry(country);
     }
 

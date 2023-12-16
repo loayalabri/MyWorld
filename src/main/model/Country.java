@@ -7,6 +7,7 @@ import model.log.EventLog;
 import org.json.JSONObject;
 import persistence.Writable;
 
+
 // Represents a country that have name, rating (from 1 to 10), continent,
 // description, and photos.
 public class Country implements Writable {
@@ -14,7 +15,8 @@ public class Country implements Writable {
     private int rating;
     private String description;
     private String continent;
-    private static final  int MAX_RATING = 10;
+    private String imagePath;
+    private static final int MAX_RATING = 10;
     private static final int MIN_RATING = 0;
 
     //MODIFIES: this
@@ -28,10 +30,11 @@ public class Country implements Writable {
         } else if (rating > MAX_RATING || rating < MIN_RATING) {
             throw new RatingOutOfBoundException();
         } else {
-            this.name = name;
-            this.continent = continent;
+            this.name = capitalizeFirstString(name);
+            this.continent = capitalizeFirstString(continent);
             this.rating = rating;
             this.description = desc;
+            this.imagePath = "";
         }
     }
 
@@ -51,6 +54,18 @@ public class Country implements Writable {
         return description;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void removeBase64Image() {
+        imagePath = "";
+    }
+
     // MODIFIES: this
     // EFFECTS: set given text to description
     public void setDescription(String description) {
@@ -58,8 +73,8 @@ public class Country implements Writable {
     }
 
 
-    //MODIFIES: this
-    //EFFECTS: change rating to newRating,
+    // MODIFIES: this
+    // EFFECTS: change rating to newRating,
     //         if newRating is not in [MIN_RATING, MAX_RATING], throw RatingOutOfBoundException
     public void setRating(int newRating) throws RatingOutOfBoundException {
         if (newRating > MAX_RATING || newRating < MIN_RATING) {
@@ -70,6 +85,13 @@ public class Country implements Writable {
         }
     }
 
+    // REQUIRES: string,length() > 0
+    // EFFECTS: return string with capitalized first letter
+    private String capitalizeFirstString(String string) {
+        String input = string.toLowerCase();
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
+    }
+
     @Override
     public JSONObject toJason() {
         JSONObject json = new JSONObject();
@@ -77,6 +99,7 @@ public class Country implements Writable {
         json.put("continent", continent);
         json.put("rating", rating);
         json.put("description", description);
+        json.put("image", imagePath);
         return json;
     }
 
